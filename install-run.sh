@@ -56,6 +56,14 @@ else
     unpack_installer "google-chrome-stable_114.0.5735.198-1_amd64.deb"
 fi
 
+# Check if aws cli exists or not
+if is_Package_Installed "awscli"; then
+    echo "awscli is installed on this Ubuntu machine."
+else
+    echo "awscli is not installed."
+    install_package "awscli"
+fi
+
 cd webdriver-tests
 mvn clean test
 aws s3 sync reports/ s3://ubuntu-reports
